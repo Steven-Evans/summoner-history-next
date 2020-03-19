@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     matches = await Promise.all(matchlistDTO.matches.map((matchReference: any) => kayn.Match.get(matchReference.gameId)));
   } catch (err) {
     console.error(err);
-    res.status(err.statusCode).end(JSON.stringify(err));
+    return res.status(err.statusCode).end(JSON.stringify(err));
   }
   const data = matches.map((match: any) => {
     const participantId = match.participantIdentities.find((participant: any) => participant.player.summonerName === summonerName).participantId;
@@ -62,5 +62,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   //});
 
   //res.end(`Variable: ${summonerName}`)
-  res.end(JSON.stringify(data));
+  return res.end(JSON.stringify(data));
 };
