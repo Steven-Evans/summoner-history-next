@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "LEAGUE_API_KEY": "@LEAGUE_API_KEY"
+      "LEAGUE_API_KEY": "@league_api_key"
     }
   }
 }
