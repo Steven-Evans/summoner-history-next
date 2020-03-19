@@ -53,5 +53,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   });
 
-  return res.end(JSON.stringify(data));
+  return res.status(200).json({ matches: data });
 };

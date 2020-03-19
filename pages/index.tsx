@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 
-const Home: NextPage = () => <h1>Hello world!</h1>;
+const Index: NextPage = () => <h1>Hello world!</h1>;
 
-Home.getInitialProps = async ({ req }) => {
+Index.getInitialProps = async ({ req }) => {
   return {};
 };
 
-export default Home;
+export default Index;
 
