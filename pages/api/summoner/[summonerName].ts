@@ -15,7 +15,7 @@ const kayn = Kayn(process.env.LEAGUE_API_KEY)({
 });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const summonerName = 'awpeofijaweofjao'//req.query.summonerName;
+  const summonerName = req.query.summonerName;
 
   let matches;
   try {
@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     matches = await Promise.all(matchlistDTO.matches.map((matchReference: any) => kayn.Match.get(matchReference.gameId)));
   } catch (err) {
     console.error(err);
-    return res.status(err.statusCode).end(JSON.stringify(err));
+    return res.status(err.statusCode).end(err.error.name + err.error.message);
   }
   const data = matches.map((match: any) => {
     const participantId = match.participantIdentities.find((participant: any) => participant.player.summonerName === summonerName).participantId;
@@ -53,14 +53,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   });
 
-  
-  //const requests = gameIds.map(kayn.Match.get)
-  //const results = await Promise.all(requests)
-  //Promise.all()
-  //.catch((err: any) => {
-  //    console.log('err', err);
-  //});
-
-  //res.end(`Variable: ${summonerName}`)
   return res.end(JSON.stringify(data));
 };
