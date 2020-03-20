@@ -4,6 +4,7 @@ const { Kayn, REGIONS } = require('kayn');
 const MATCH_HISTORY_LENGTH = 5;
 import champions from '../../../lib/champions.json';
 import items from '../../../lib/items.json';
+import summonerSpells from '../../../lib/summoner-spells.json';
 
 
 const kayn = Kayn(process.env.LEAGUE_API_KEY)({
@@ -19,6 +20,13 @@ const kayn = Kayn(process.env.LEAGUE_API_KEY)({
 const getItemFromID = (itemId) => {
   if (itemId === 0) return null;
   return items[itemId];
+}
+
+const getSpellFromId = (spellId) => {
+  const spell = Object.values(summonerSpells.data).find(sSpell => parseInt(sSpell.key) === spellId);
+  if(spell)
+    return spell.name;
+  return null
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -51,8 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       champLevel: stats.champLevel,
       sightWardsBoughtInGame: stats.sightWardsBoughtInGame,
       championName: champions[participant.championId],
-      spell1Id: participant.spell1Id,
-      spell2Id: participant.spell2Id,
+      spells: [participant.spell1Id, participant.spell2Id].map(spell => getSpellFromId(spell)),
       gameDuration: match.gameDuration,
     }
   });
