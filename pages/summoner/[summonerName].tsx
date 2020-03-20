@@ -8,17 +8,12 @@ const SummonerHistory: NextPage = (props: any) => {
   const matches = props.matches;
   return (
   <div>
-    <h1>Hello world!</h1>
-    <div>
-      <SummonerForm />
-    </div>
-    <div>
-      <ul>
-        {matches.map((match, ind) => 
-          <MatchItem key={ind} match={match}/>
-        )}
-      </ul>
-    </div>
+    <SummonerForm />
+    <ul>
+      {matches.map((match, ind) => 
+        <MatchItem key={ind} match={match}/>
+      )}
+    </ul>
     <style jsx>{`
       .matches: {
         
