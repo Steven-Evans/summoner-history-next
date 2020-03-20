@@ -3,7 +3,6 @@ import React from "react";
 const division = (totalKilled, duration, precision) => Math.round(Math.pow(10, precision)* totalKilled / duration) / Math.pow(10, precision);
 
 const MatchItem = (props) => {
-  console.log('match', props.match);
   const match = props.match;
   return (
   <div className="content">
@@ -15,8 +14,8 @@ const MatchItem = (props) => {
       <section>{match.championName}</section>
       <br />
       {
-        match.spells.map((spell) => (
-          <section>
+        match.spells.map((spell, ind) => (
+          <section key={ind}>
             {spell}
           </section>
         ))
@@ -32,8 +31,8 @@ const MatchItem = (props) => {
     </div>
     <div className="inlineBlock">
       {
-        match.itemNames.map((item) => (
-          <section>
+        match.itemNames.map((item, ind) => (
+          <section key={ind}>
             {item}
           </section>
         ))

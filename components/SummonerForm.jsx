@@ -4,7 +4,7 @@ import Router from 'next/router';
 class SummonerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {summonerName: ''};
   }
   
   render() {
