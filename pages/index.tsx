@@ -1,10 +1,11 @@
 import { NextPage } from 'next';
+import SummonerForm from '../components/SummonerForm';
 
-const Index: NextPage = () => <h1>Hello world!</h1>;
-
-Index.getInitialProps = async ({ req }) => {
-  return {};
-};
+const Index: NextPage = () => (
+  <div>
+    <SummonerForm />
+  </div>
+);
 
 export default Index;
 
