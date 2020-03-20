@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 // @ts-ignore
 const { Kayn, REGIONS } = require('kayn');
 const MATCH_HISTORY_LENGTH = 5;
+import champions from '../../../lib/champions.json';
 
 
 const kayn = Kayn(process.env.LEAGUE_API_KEY)({
@@ -46,7 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       totalMinionsKilled: stats.totalMinionsKilled,
       champLevel: stats.champLevel,
       sightWardsBoughtInGame: stats.sightWardsBoughtInGame,
-      championId: participant.championId,
+      championName: champions[participant.championId],
       spell1Id: participant.spell1Id,
       spell2Id: participant.spell2Id,
       gameDuration: match.gameDuration,
