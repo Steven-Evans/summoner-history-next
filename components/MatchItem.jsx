@@ -22,7 +22,13 @@ const MatchItem = (props) => {
       <section>CS: {match.totalMinionsKilled}, ({division((match.totalMinionsKilled * 60), match.gameDuration, 1)})</section>
     </div>
     <div className="inlineBlock">
-      <section>items</section>
+      {
+        match.itemNames.map((item) => (
+          <section>
+            {item}
+          </section>
+        ))
+      }
     </div>
     <style jsx>{`
       .inlineBlock {
@@ -31,6 +37,7 @@ const MatchItem = (props) => {
         width: 20%;
         text-align: center;
         white-space: normal;
+        vertical-align: middle;
       }
       .content {
         margin: 1em auto;
@@ -40,6 +47,10 @@ const MatchItem = (props) => {
       }
       section {
         white-space: nowrap;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
       }
     `}</style>
   </div>

@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const { Kayn, REGIONS } = require('kayn');
 const MATCH_HISTORY_LENGTH = 5;
 import champions from '../../../lib/champions.json';
+import items from '../../../lib/items.json';
 
 
 const kayn = Kayn(process.env.LEAGUE_API_KEY)({
@@ -14,6 +15,11 @@ const kayn = Kayn(process.env.LEAGUE_API_KEY)({
     delayBeforeRetry: 1000,
   }
 });
+
+const getItemFromID = (itemId) => {
+  if (itemId === 0) return null;
+  return items[itemId];
+}
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const summonerName = req.query.summonerName;
@@ -31,16 +37,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const participantId = match.participantIdentities.find((participant: any) => participant.player.summonerName === summonerName).participantId;
     const participant = match.participants.find((player: any) => player.participantId === participantId);
     const stats = participant.stats;
+
+    const itemIds = [stats.item0, stats.item1, stats.item2, stats.item3, stats.item4, stats.item5, stats.item6];
+    const itemNames = itemIds.map(item => getItemFromID(item)).filter(item => item);
     
     return {
       win: stats.win,
-      item0: stats.item0,
-      item1: stats.item1,
-      item2: stats.item2,
-      item3: stats.item3,
-      item4: stats.item4,
-      item5: stats.item5,
-      item6: stats.item6,
+      itemNames: itemNames,
       kills: stats.kills,
       deaths: stats.deaths,
       assists: stats.assists,
